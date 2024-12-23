@@ -1,0 +1,58 @@
+.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Play Button</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400..800&family=Charm:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <video autoplay muted loop id="liveBg">
+        <source src="img/livebg1.mp4" type="video/mp4">
+    </video>
+    <div class="container">
+        <button id="playButton">Play</button>
+    </div>
+
+    <div class="modal" id="gameModal">
+        <div class="modal-content">
+            <p>Quỳnh Quỳnh mệt chưa</p>
+            <div class="button-group">
+                <button id="tiredBtn">Mệt</button>
+                <button id="notTiredBtn">Còn lâu nhé</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="selectgift">
+        <div class="modal-content gift-content">
+            <div class="gift-title">Chọn một món đi bàaaa!</div>
+            <div class="yourchoose">
+                <div class="gift-option">
+                    <img src="img/gift1.jpeg" alt="Gift 1" class="gift-image">
+                </div>
+                <div class="gift-option">
+                    <img src="img/gift3.jpeg" alt="Gift 2" class="gift-image">
+                </div>
+                <div class="gift-option">
+                    <img src="img/gift2.jpeg" alt="Gift 3" class="gift-image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="transition-overlay"></div>
+    <audio id="transitionAudio" preload="auto">
+        <source src="haha.mp3" type="audio/mp3">
+    </audio>
+    <script src="script.js"></script>
+</body>
+
+</html>
