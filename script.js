@@ -10,10 +10,11 @@ const resetButtonPosition = () => {
     button.style.left = '50%';
     button.style.top = '50%';
     button.style.transform = 'translate(-50%, -50%)';
-    button.style.cursor = 'default';
+    button.style.cursor = 'pointer'; // Changed to pointer by default
 };
 
-button.removeEventListener('mouseover', () => {});
+// Initial setup
+resetButtonPosition();
 button.style.transition = 'none';
 
 document.addEventListener('mousemove', (e) => {
@@ -45,11 +46,7 @@ document.addEventListener('mousemove', (e) => {
         button.style.transform = 'none';
         button.style.left = randomX + 'px';
         button.style.top = randomY + 'px';
-
-        // Add and remove animation class
-        button.classList.remove('animate');
-        void button.offsetWidth; // Trigger reflow
-        button.classList.add('animate');
+        button.style.cursor = 'pointer'; // Ensure cursor remains pointer
 
         if (moveCounter === MAX_MOVES) {
             setTimeout(resetButtonPosition, 100);
@@ -57,8 +54,10 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-button.addEventListener('click', () => {
-    console.log('haha');
+// Clear any existing click listeners and add new one
+button.replaceWith(button.cloneNode(true));
+const newButton = document.getElementById('playButton');
+newButton.addEventListener('click', () => {
     modal.style.display = 'flex';
 });
 
@@ -71,7 +70,6 @@ notTiredBtn.addEventListener('click', () => {
     modal.style.display = 'none';
     moveCounter = 0;
     resetButtonPosition();
-    button.style.cursor = 'pointer';
 });
 
 // ...existing code...
