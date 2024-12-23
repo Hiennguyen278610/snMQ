@@ -74,10 +74,13 @@ notTiredBtn.addEventListener('click', () => {
     button.style.cursor = 'pointer';
 });
 
+// ...existing code...
+
 document.addEventListener('DOMContentLoaded', function() {
     const giftLinks = document.querySelectorAll('.gift-option');
     const overlay = document.querySelector('.transition-overlay');
     const transitionAudio = document.getElementById('transitionAudio');
+    const transitionDuration = 500; // Define transition duration in milliseconds
 
     giftLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -87,10 +90,12 @@ document.addEventListener('DOMContentLoaded', function() {
             transitionAudio.play();
             overlay.classList.add('active');
             
-            // Navigate after short delay for transition effect
+            // Navigate after transition duration
             setTimeout(() => {
                 window.location.href = this.href;
-            }, 500);
+            }, transitionDuration);
         });
     });
 });
+
+// ...existing code...
