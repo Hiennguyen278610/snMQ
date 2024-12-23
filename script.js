@@ -10,11 +10,10 @@ const resetButtonPosition = () => {
     button.style.left = '50%';
     button.style.top = '50%';
     button.style.transform = 'translate(-50%, -50%)';
-    button.style.cursor = 'pointer'; // Changed to pointer by default
+    button.style.cursor = 'default';
 };
 
-// Initial setup
-resetButtonPosition();
+button.removeEventListener('mouseover', () => {});
 button.style.transition = 'none';
 
 document.addEventListener('mousemove', (e) => {
@@ -46,7 +45,11 @@ document.addEventListener('mousemove', (e) => {
         button.style.transform = 'none';
         button.style.left = randomX + 'px';
         button.style.top = randomY + 'px';
-        button.style.cursor = 'pointer'; // Ensure cursor remains pointer
+
+        // Add and remove animation class
+        button.classList.remove('animate');
+        void button.offsetWidth; // Trigger reflow
+        button.classList.add('animate');
 
         if (moveCounter === MAX_MOVES) {
             setTimeout(resetButtonPosition, 100);
@@ -54,10 +57,8 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-// Clear any existing click listeners and add new one
-button.replaceWith(button.cloneNode(true));
-const newButton = document.getElementById('playButton');
-newButton.addEventListener('click', () => {
+button.addEventListener('click', () => {
+    console.log('haha');
     modal.style.display = 'flex';
 });
 
@@ -70,30 +71,32 @@ notTiredBtn.addEventListener('click', () => {
     modal.style.display = 'none';
     moveCounter = 0;
     resetButtonPosition();
+    button.style.cursor = 'pointer';
 });
 
-// ...existing code...
-
 document.addEventListener('DOMContentLoaded', function() {
-    const giftLinks = document.querySelectorAll('.gift-option');
+    const giftOptions = document.querySelectorAll('.gift-option');
     const overlay = document.querySelector('.transition-overlay');
     const transitionAudio = document.getElementById('transitionAudio');
-    const transitionDuration = 500; // Define transition duration in milliseconds
+    const TRANSITION_DURATION = 2000; // 2 seconds transition
 
-    giftLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent immediate navigation
+    giftOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            // Play audio with error handling
+            transitionAudio.play().catch(error => {
+                console.log("Audio playback failed:", error);
+            });
             
-            // Play audio and show overlay
-            transitionAudio.play();
+            // Activate overlay
             overlay.classList.add('active');
             
-            // Navigate after transition duration
+            // Store audio currentTime before transition
+            localStorage.setItem('audioTime', transitionAudio.currentTime);
+            
+            // Redirect after transition
             setTimeout(() => {
-                window.location.href = this.href;
-            }, transitionDuration);
+                window.location.href = 'main.html';
+            }, TRANSITION_DURATION);
         });
     });
 });
-
-// ...existing code...
