@@ -75,24 +75,22 @@ notTiredBtn.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    const giftOptions = document.querySelectorAll('.gift-option');
+    const giftLinks = document.querySelectorAll('.gift-option');
     const overlay = document.querySelector('.transition-overlay');
     const transitionAudio = document.getElementById('transitionAudio');
 
-    giftOptions.forEach(option => {
-        option.addEventListener('click', function() {
-            // Play audio
-            transitionAudio.play();
+    giftLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent immediate navigation
             
-            // Activate overlay
+            // Play audio and show overlay
+            transitionAudio.play();
             overlay.classList.add('active');
             
-            // Store audio currentTime before transition
-            localStorage.setItem('audioTime', transitionAudio.currentTime);
-            
+            // Navigate after short delay for transition effect
             setTimeout(() => {
-                window.location.href = 'main.html';
-            }, transitionDuration);
+                window.location.href = this.href;
+            }, 500);
         });
     });
 });
