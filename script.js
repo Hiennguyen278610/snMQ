@@ -78,22 +78,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const giftOptions = document.querySelectorAll('.gift-option');
     const overlay = document.querySelector('.transition-overlay');
     const transitionAudio = document.getElementById('transitionAudio');
-    const TRANSITION_DURATION = 2000; // 2 seconds transition
+    const TRANSITION_DURATION = 2000;
 
     giftOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // Play audio with error handling
-            transitionAudio.play().catch(error => {
-                console.log("Audio playback failed:", error);
-            });
+            localStorage.setItem('audioTime', transitionAudio.currentTime);
+            localStorage.setItem('audioPlaying', 'true');
             
-            // Activate overlay
             overlay.classList.add('active');
             
-            // Store audio currentTime before transition
-            localStorage.setItem('audioTime', transitionAudio.currentTime);
-            
-            // Redirect after transition
             setTimeout(() => {
                 window.location.href = 'main.html';
             }, TRANSITION_DURATION);

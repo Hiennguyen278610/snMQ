@@ -86,3 +86,28 @@ fadeInElements.forEach(element => {
     element.style.transition = 'all 0.5s ease-out';
     fadeInOutOnScroll.observe(element);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const backgroundAudio = document.getElementById('backgroundAudio');
+    const storedTime = localStorage.getItem('audioTime');
+    const wasPlaying = localStorage.getItem('audioPlaying') === 'true';
+    let audioStarted = false;
+    
+    if (storedTime) {
+        backgroundAudio.currentTime = parseFloat(storedTime);
+    }
+
+    function startAudio() {
+        if (!audioStarted && wasPlaying) {
+            backgroundAudio.play().catch(error => {
+                console.log("Audio playback failed:", error);
+            });
+            audioStarted = true;
+        }
+    }
+    startAudio();
+    document.body.addEventListener('click', startAudio, { once: true });
+    setInterval(() => {
+        localStorage.setItem('audioTime', backgroundAudio.currentTime);
+    }, 1000);
+});
